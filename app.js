@@ -14,7 +14,35 @@ let dy = -2
 // Paddle Variables
 let paddleHeight = 10
 let paddleWidth = 75
+let paddleColor = '#0095DD'
 let paddleX = (canvas.width-paddleWidth)/2
+
+// Control Variables
+let rightPressed = false
+let leftPressed = false
+let playerSpeed = 7
+
+// Event Listeners and Handlers
+document.addEventListener('keydown', keyDownHandler, false)
+document.addEventListener('keyup', keyUpHandler, false)
+
+function keyDownHandler(e){
+  if(e.key == 'Right' || e.key == 'ArrowRight'){
+    rightPressed = true
+  }
+  else if(e.key == 'Left' || e.key == 'ArrowLeft'){
+    leftPressed = true
+  }
+}
+
+function keyUpHandler(e){
+  if(e.key == 'Right' || e.key == 'ArrowRight'){
+    rightPressed = false
+  }
+  else if(e.key == 'Left' || e.key == 'ArrowLeft'){
+    leftPressed = false
+  }
+}
 
 // Draws the ball
 function drawBall(){
@@ -29,7 +57,11 @@ function drawBall(){
 
 // Draws the paddle
 function drawPaddle(){
-  
+  ctx.beginPath()
+  ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight)
+  ctx.fillStyle = paddleColor
+  ctx.fill()
+  ctx.closePath()
 }
 
 // Returns a random color as a hexcode
@@ -68,7 +100,25 @@ function getRGBGridColor(xColor, yColor){
 function draw(){
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   drawBall()
+  drawPaddle()
 
+  // Checks to see if a button has been pressed
+  if(rightPressed){
+    paddleX += playerSpeed
+    // Checks to make sure it isn't hitting a boundary
+    if(paddleX + paddleWidth > canvas.width){
+      paddleX = canvas.width - paddleWidth
+    }
+  }
+  else if(leftPressed){
+    paddleX -= playerSpeed
+    // Checks to make sure it isn't hitting a boundary
+    if(paddleX < 0){
+      paddleX = 0
+    }
+  }
+
+  // Checks to see if the ball is hitting a boundary. If so, bounces it off
   if(x + dx > canvas.width-ballRadius || x + dx < ballRadius ){
     dx = -dx
     randomBallColor = getRandomColor()
