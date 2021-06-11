@@ -128,8 +128,9 @@ function draw(){
     randomBallColor = getRandomColor()
   }
   else if(y + dy > canvas.height-ballRadius){
-    // If the balls hits the paddle, bounces back up and speeds up
+    // If the balls hits the paddle, bounces back up and speeds up the ball and player
     if(x > paddleX && x < paddleX + paddleWidth){
+      playerSpeed += 0.25
       if(dx > 0) dx += 0.5
       else if(dx < 0) dx -= 0.5
       dy += 0.5
