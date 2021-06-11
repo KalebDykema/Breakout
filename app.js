@@ -123,16 +123,31 @@ function draw(){
     dx = -dx
     randomBallColor = getRandomColor()
   }
-  if(y + dy > canvas.height-ballRadius || y + dy < ballRadius ){
+  if(y + dy < ballRadius ){
     dy = -dy
     randomBallColor = getRandomColor()
+  }
+  else if(y + dy > canvas.height-ballRadius){
+    // If the balls hits the paddle, bounces back up and speeds up
+    if(x > paddleX && x < paddleX + paddleWidth){
+      if(dx > 0) dx += 0.5
+      else if(dx < 0) dx -= 0.5
+      dy += 0.5
+      dy = -dy
+    }
+    // If the balls hits the bottom wall, game over
+    else {
+      alert('GAME OVER')
+      document.location.reload()
+      clearInterval(interval)
+    }
   }
 
   x += dx
   y += dy
 }
 // Calls draw every 10 miliseconds
-setInterval(draw, 10)
+var interval = setInterval(draw, 10)
 
 // // Red Rectangle
 // ctx.beginPath()
