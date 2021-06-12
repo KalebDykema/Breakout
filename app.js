@@ -62,6 +62,18 @@ function keyUpHandler(e){
   }
 }
 
+// Collision detection calculations
+function collisionDetection(){
+  for(var c = 0; c < brickColumnCount; c++){
+    for(var r = 0; r < brickRowCount; r++){
+      let b = bricks[c][r]
+      if(ballX - ballRadius > b.x && ballX - ballRadius < b.x + brickWidth && ballY - ballRadius> b.y && ballY - ballRadius < b.y + brickHeight){
+        ballSpeedY = -ballSpeedY
+      }
+    }
+  }
+}
+
 // Draws the ball
 function drawBall(){
   ctx.beginPath()
@@ -105,6 +117,7 @@ function draw(){
   drawBall()
   drawPaddle()
   drawBricks()
+  collisionDetection()
 
   // Checks to see if a button has been pressed
   if(rightPressed){
@@ -133,11 +146,12 @@ function draw(){
   }
   else if(ballY + ballSpeedY > canvas.height-ballRadius){
     // If the balls hits the paddle, bounces back up and speeds up the ball and player
+    // Speeding up is currently commented out
     if(ballX > paddleX && ballX < paddleX + paddleWidth){
-      paddleSpeed += 0.25
-      if(ballSpeedX > 0) ballSpeedX += 0.5
-      else if(ballSpeedX < 0) ballSpeedX -= 0.5
-      ballSpeedY += 0.5
+      // paddleSpeed += 0.25
+      // if(ballSpeedX > 0) ballSpeedX += 0.5
+      // else if(ballSpeedX < 0) ballSpeedX -= 0.5
+      // ballSpeedY += 0.5
       ballSpeedY = -ballSpeedY
     }
     // If the balls hits the bottom wall, game over
@@ -153,18 +167,6 @@ function draw(){
 }
 // Calls draw every 10 miliseconds
 var interval = setInterval(draw, 10)
-
-// Collision detection calculations
-function collisionDetection(){
-  for(var c = 0; c < brickColumnCount; c++){
-    for(var r = 0; r < brickRowCount; r++){
-      let b = bricks[c][r]
-      if(ballX > b.x && ballX < b.x + brickWidth && ballY > b.y && ballY < b.y + brickHeight){
-        ballSpeedY = -ballSpeedY
-      }
-    }
-  }
-}
 
 // Returns a random color as a hexcode
 function getRandomColor(){
