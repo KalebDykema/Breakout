@@ -6,21 +6,21 @@ let ctx = canvas.getContext('2d')
 let ballRadius = 10
 let ballColor = '#0095dd'
 let randomBallColor = getRandomColor();
-let x = canvas.width/2
-let y = canvas.height-30
-let dx = 2
-let dy = -2
+let ballX = canvas.width/2
+let ballY = canvas.height-30
+let ballSpeedX = 2
+let ballSpeedY = -2
 
 // Paddle Variables
 let paddleHeight = 10
 let paddleWidth = 75
 let paddleColor = '#0095DD'
 let paddleX = (canvas.width-paddleWidth)/2
+let paddleSpeed = 7
 
 // Control Variables
 let rightPressed = false
 let leftPressed = false
-let playerSpeed = 7
 
 // Event Listeners and Handlers
 document.addEventListener('keydown', keyDownHandler, false)
@@ -47,7 +47,7 @@ function keyUpHandler(e){
 // Draws the ball
 function drawBall(){
   ctx.beginPath()
-  ctx.arc(x, y, ballRadius, 0, Math.PI*2)
+  ctx.arc(ballX, ballY, ballRadius, 0, Math.PI*2)
   // ctx.fillStyle = ballColor
   ctx.fillStyle = randomBallColor
   // ctx.fillStyle = getRGBGridColor('g', 'b')
@@ -82,15 +82,15 @@ function getRGBGridColor(xColor, yColor){
   let blue = defaultValue
 
   // Checks what color the first variable is, makes sure the second is not the same, and makes sure it's R, G, or B. If none of this is true, returns the default color
-  if(xColor.toLowerCase() == 'r' && yColor.toLowerCase != 'r') red = x + defaultValue
-  else if(xColor.toLowerCase() == 'g' && yColor.toLowerCase != 'g') green = x + defaultValue
-  else if(xColor.toLowerCase() == 'b' && yColor.toLowerCase != 'b') blue = x + defaultValue
+  if(xColor.toLowerCase() == 'r' && yColor.toLowerCase != 'r') red = ballX + defaultValue
+  else if(xColor.toLowerCase() == 'g' && yColor.toLowerCase != 'g') green = ballX + defaultValue
+  else if(xColor.toLowerCase() == 'b' && yColor.toLowerCase != 'b') blue = ballX + defaultValue
   else return ballColor
 
   // Checks what color the second variable is, makes sure the first is not the same, and makes sure it's R, G, or B. If none of this is true, returns the default color
-  if(yColor.toLowerCase() == 'r' && xColor.toLowerCase != 'r') red = y + defaultValue
-  else if(yColor.toLowerCase() == 'g' && xColor.toLowerCase != 'g') green = y + defaultValue
-  else if(yColor.toLowerCase() == 'b' && xColor.toLowerCase != 'b') blue = y + defaultValue
+  if(yColor.toLowerCase() == 'r' && xColor.toLowerCase != 'r') red = ballY + defaultValue
+  else if(yColor.toLowerCase() == 'g' && xColor.toLowerCase != 'g') green = ballY + defaultValue
+  else if(yColor.toLowerCase() == 'b' && xColor.toLowerCase != 'b') blue = ballY + defaultValue
   else return ballColor
 
   return `rgb(${red}, ${green}, ${blue})`
@@ -104,14 +104,14 @@ function draw(){
 
   // Checks to see if a button has been pressed
   if(rightPressed){
-    paddleX += playerSpeed
+    paddleX += paddleSpeed
     // Checks to make sure it isn't hitting a boundary
     if(paddleX + paddleWidth > canvas.width){
       paddleX = canvas.width - paddleWidth
     }
   }
   else if(leftPressed){
-    paddleX -= playerSpeed
+    paddleX -= paddleSpeed
     // Checks to make sure it isn't hitting a boundary
     if(paddleX < 0){
       paddleX = 0
@@ -119,22 +119,22 @@ function draw(){
   }
 
   // Checks to see if the ball is hitting a boundary. If so, bounces it off
-  if(x + dx > canvas.width-ballRadius || x + dx < ballRadius ){
-    dx = -dx
+  if(ballX + ballSpeedX > canvas.width-ballRadius || ballX + ballSpeedX < ballRadius ){
+    ballSpeedX = -ballSpeedX
     randomBallColor = getRandomColor()
   }
-  if(y + dy < ballRadius ){
-    dy = -dy
+  if(ballY + ballSpeedX < ballRadius ){
+    ballSpeedX = -ballSpeedX
     randomBallColor = getRandomColor()
   }
-  else if(y + dy > canvas.height-ballRadius){
+  else if(ballY + ballSpeedX > canvas.height-ballRadius){
     // If the balls hits the paddle, bounces back up and speeds up the ball and player
-    if(x > paddleX && x < paddleX + paddleWidth){
-      playerSpeed += 0.25
-      if(dx > 0) dx += 0.5
-      else if(dx < 0) dx -= 0.5
-      dy += 0.5
-      dy = -dy
+    if(ballX > paddleX && ballX < paddleX + paddleWidth){
+      paddleSpeed += 0.25
+      if(ballSpeedX > 0) ballSpeedX += 0.5
+      else if(ballSpeedX < 0) ballSpeedX -= 0.5
+      ballSpeedX += 0.5
+      ballSpeedX = -ballSpeedX
     }
     // If the balls hits the bottom wall, game over
     else {
@@ -144,8 +144,8 @@ function draw(){
     }
   }
 
-  x += dx
-  y += dy
+  ballX += ballSpeedX
+  ballY += ballSpeedX
 }
 // Calls draw every 10 miliseconds
 var interval = setInterval(draw, 10)
