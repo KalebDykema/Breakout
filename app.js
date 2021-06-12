@@ -5,7 +5,7 @@ let ctx = canvas.getContext('2d')
 // Ball Variables
 let ballRadius = 10
 let ballColor = '#0095dd'
-let randomBallColor = getRandomColor();
+let randomBallColor = getRandomColor()
 let ballX = canvas.width/2
 let ballY = canvas.height-30
 let ballSpeedX = 2
@@ -32,7 +32,11 @@ let bricks = []
 for(let c = 0; c < brickColumnCount; c++){
   bricks[c] = []
   for(var r=0; r < brickRowCount; r++){
-    bricks[c][r] = { x: 0, y: 0}
+    bricks[c][r] = {
+      x: 0, 
+      y: 0, 
+      status: 1
+    }
   }
 }
 
@@ -66,9 +70,14 @@ function keyUpHandler(e){
 function collisionDetection(){
   for(var c = 0; c < brickColumnCount; c++){
     for(var r = 0; r < brickRowCount; r++){
-      let b = bricks[c][r]
-      if(ballX - ballRadius > b.x && ballX - ballRadius < b.x + brickWidth && ballY - ballRadius> b.y && ballY - ballRadius < b.y + brickHeight){
-        ballSpeedY = -ballSpeedY
+      // Ball will only bounce if the brick hasn't been hit
+      if(bricks[c][r].status == 1){
+        let b = bricks[c][r]
+        if(ballX - ballRadius > b.x && ballX - ballRadius < b.x + brickWidth && ballY - ballRadius> b.y && ballY - ballRadius < b.y + brickHeight){
+          bricks[c][r].status = 0
+          randomBallColor = getRandomColor()
+          ballSpeedY = -ballSpeedY
+        }
       }
     }
   }
@@ -98,15 +107,18 @@ function drawPaddle(){
 function drawBricks(){
   for(var c = 0; c < brickColumnCount; c++){
     for(var r = 0; r < brickRowCount; r++){
-      let brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft
-      let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop
-      bricks[c][r].x = brickX
-      bricks[c][r].y = brickY
-      ctx.beginPath()
-      ctx.rect(brickX, brickY, brickWidth, brickHeight)
-      ctx.fillStyle = brickColor
-      ctx.fill()
-      ctx.closePath()
+      // Only draws the brick if it's status is at 1, AKA it hasn't been hit
+      if(bricks[c][r].status == 1){
+        let brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft
+        let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop
+        bricks[c][r].x = brickX
+        bricks[c][r].y = brickY
+        ctx.beginPath()
+        ctx.rect(brickX, brickY, brickWidth, brickHeight)
+        ctx.fillStyle = brickColor
+        ctx.fill()
+        ctx.closePath()
+      }
     }
   }
 }
