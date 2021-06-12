@@ -8,8 +8,10 @@ let ballColor = '#0095dd'
 let randomBallColor = getRandomColor()
 let ballX = canvas.width/2
 let ballY = canvas.height-30
-let ballSpeedX = 2
-let ballSpeedY = -2
+let ballSpeed = 4
+let ballSpeedX = ballSpeed
+let ballSpeedY = -ballSpeed
+let ballSpeedVelocity = Math.sqrt(ballSpeedX**2 + ballSpeedY**2)
 
 // Paddle Variables
 let paddleHeight = 10
@@ -190,14 +192,12 @@ function draw(){
     randomBallColor = getRandomColor()
   }
   else if(ballY + ballSpeedY > canvas.height-ballRadius){
-    // If the balls hits the paddle, bounces back up and speeds up the ball and player
-    // Speeding up is currently commented out
+    // If the balls hits the paddle, bounces back up at a different angle
     if(ballX > paddleX && ballX < paddleX + paddleWidth){
-      // paddleSpeed += 0.25
-      // if(ballSpeedX > 0) ballSpeedX += 0.5
-      // else if(ballSpeedX < 0) ballSpeedX -= 0.5
-      // ballSpeedY += 0.5
+      ballSpeedX = ((ballX-paddleX-(paddleWidth/2))/paddleWidth)*2
+      ballSpeedY = Math.sqrt(ballSpeedVelocity**2 - ballSpeedX**2)
       ballSpeedY = -ballSpeedY
+      console.log(ballSpeedX**2 + ballSpeedY**2, ballSpeedVelocity**2)
     }
     // If the balls hits the bottom wall, removes a life or ends the game if there's no lives left
     else {
