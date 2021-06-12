@@ -43,6 +43,7 @@ for(let c = 0; c < brickColumnCount; c++){
 
 // Other Variables
 let score = 0
+let lives = 3
 let rightPressed = false
 let leftPressed = false
 
@@ -91,7 +92,7 @@ function collisionDetection(){
           if(score == brickRowCount * brickColumnCount * brickScore){
             alert(`YOU WIN\nScore: ${score}`)
             document.location.reload()
-            clearInterval(interval)
+            requestAnimationFrame(draw) 
           }
         }
       }
@@ -104,6 +105,13 @@ function drawScore(){
   ctx.font = '16px Arial'
   ctx.fillStyle = '#0095DD'
   ctx.fillText(`Score: ${score}`, 8, 20)
+}
+
+// Draws the lives
+function drawLives(){
+  ctx.font = '16px Arial'
+  ctx.fillStyle = '#0095DD'
+  ctx.fillText(`Lives: ${lives}`, canvas.width-65, 20)
 }
 
 // Draws the ball
@@ -152,6 +160,7 @@ function draw(){
   drawBall()
   drawPaddle()
   drawScore()
+  drawLives()
   drawBricks()
   collisionDetection()
 
@@ -190,19 +199,30 @@ function draw(){
       // ballSpeedY += 0.5
       ballSpeedY = -ballSpeedY
     }
-    // If the balls hits the bottom wall, game over
+    // If the balls hits the bottom wall, removes a life or ends the game if there's no lives left
     else {
-      alert('GAME OVER')
-      document.location.reload()
-      clearInterval(interval)
+      lives--
+      if(!lives){
+        alert('GAME OVER')
+        document.location.reload()
+        requestAnimationFrame(draw)
+      }
+      else{
+        ballX = canvas.width/2
+        ballY = canvas.height-30
+        ballSpeedX = 2
+        ballSpeedY = -2
+        paddleX = (canvas.width-paddleWidth)/2
+      }
     }
   }
 
   ballX += ballSpeedX
   ballY += ballSpeedY
+
+  requestAnimationFrame(draw)
 }
-// Calls draw every 10 miliseconds
-var interval = setInterval(draw, 10)
+draw()
 
 // Returns a random color as a hexcode
 function getRandomColor(){

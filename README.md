@@ -15,7 +15,7 @@ A 2D game made with Javascript in which you hit a ball with a paddle, directing 
 - Add controls -DONE
 - Add game logic -DONE
 - Add scoring -DONE
-- Add mouse movement controls
+- Add mouse movement controls -DONE
 - Fix collision bugs with bricks and paddle
 - Make final score display correctly
 - Improve design
