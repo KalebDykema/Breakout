@@ -18,6 +18,23 @@ let paddleColor = '#0095DD'
 let paddleX = (canvas.width-paddleWidth)/2
 let paddleSpeed = 7
 
+// Brick Variables
+let brickRowCount = 3
+let brickColumnCount = 5
+let brickWidth = 75
+let brickHeight = 20
+let brickPadding = 10
+let brickOffsetTop = 30
+let brickOffsetLeft = 30
+let bricks = []
+// Loops through and creates the approriate amount of columns and rows of bricks
+for(let c = 0; c < brickColumnCount; c++){
+  bricks[c] = []
+  for(var r=0; r < brickRowCount; r++){
+    bricks[c][r] = { x: 0, y: 0}
+  }
+}
+
 // Control Variables
 let rightPressed = false
 let leftPressed = false
@@ -123,18 +140,18 @@ function draw(){
     ballSpeedX = -ballSpeedX
     randomBallColor = getRandomColor()
   }
-  if(ballY + ballSpeedX < ballRadius ){
-    ballSpeedX = -ballSpeedX
+  if(ballY + ballSpeedY < ballRadius ){
+    ballSpeedY = -ballSpeedY
     randomBallColor = getRandomColor()
   }
-  else if(ballY + ballSpeedX > canvas.height-ballRadius){
+  else if(ballY + ballSpeedY > canvas.height-ballRadius){
     // If the balls hits the paddle, bounces back up and speeds up the ball and player
     if(ballX > paddleX && ballX < paddleX + paddleWidth){
       paddleSpeed += 0.25
       if(ballSpeedX > 0) ballSpeedX += 0.5
       else if(ballSpeedX < 0) ballSpeedX -= 0.5
-      ballSpeedX += 0.5
-      ballSpeedX = -ballSpeedX
+      ballSpeedY += 0.5
+      ballSpeedY = -ballSpeedY
     }
     // If the balls hits the bottom wall, game over
     else {
@@ -145,7 +162,7 @@ function draw(){
   }
 
   ballX += ballSpeedX
-  ballY += ballSpeedX
+  ballY += ballSpeedY
 }
 // Calls draw every 10 miliseconds
 var interval = setInterval(draw, 10)
