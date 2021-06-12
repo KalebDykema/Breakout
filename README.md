@@ -16,13 +16,14 @@ A 2D game made with Javascript in which you hit a ball with a paddle, directing 
 - Add game logic -DONE
 - Add scoring -DONE
 - Add mouse movement controls -DONE
-- Fix collision bugs with bricks and paddle -PARTIALLY DONE
+- Fix collision bugs with bricks and paddle -DONE
 - Make ball bounce at different angles -DONE
 - Make final score display correctly
 - Improve design
+- Separate code into different files
 - Clean up code
 - Add better comments -DONE
 
 # License
 
-[MIT License 2020](https://mit-license.org), [Kaleb Dykema](https://github.com/KalebDykemal).
+[MIT License 2021](https://mit-license.org), [Kaleb Dykema](https://github.com/KalebDykemal).

@@ -8,7 +8,7 @@ let ballColor = '#0095dd'
 let randomBallColor = getRandomColor()
 let ballX = canvas.width/2
 let ballY = canvas.height-30
-let ballSpeed = 4
+let ballSpeed = 2
 let ballSpeedX = ballSpeed
 let ballSpeedY = -ballSpeed
 let ballSpeedVelocity = Math.sqrt(ballSpeedX**2 + ballSpeedY**2)
@@ -81,6 +81,14 @@ function mouseMoveHandler(e){
 
 // Collision detection calculations
 function collisionDetection(){
+  // Paddle Detection
+  if(ballX + ballRadius > paddleX && ballX - ballRadius < paddleX + paddleWidth && ballY + ballRadius> canvas.height-(paddleHeight/2) && ballY - ballRadius < (canvas.height-(paddleHeight/2)) + paddleHeight){
+    ballSpeedX = ((ballX-paddleX-(paddleWidth/2))/paddleWidth)*2
+    ballSpeedY = Math.sqrt(ballSpeedVelocity**2 - ballSpeedX**2)
+    ballSpeedY = -ballSpeedY
+  }
+
+  // Brick Detections
   for(var c = 0; c < brickColumnCount; c++){
     for(var r = 0; r < brickRowCount; r++){
       // Ball will only bounce if the brick hasn't been hit
@@ -191,29 +199,20 @@ function draw(){
     ballSpeedY = -ballSpeedY
     randomBallColor = getRandomColor()
   }
+  // If the balls hits the bottom wall, removes a life or ends the game if there's no lives left
   else if(ballY + ballSpeedY > canvas.height-ballRadius){
-    // If the balls hits the paddle, bounces back up at a different angle
-    if(ballX > paddleX && ballX < paddleX + paddleWidth){
-      ballSpeedX = ((ballX-paddleX-(paddleWidth/2))/paddleWidth)*2
-      ballSpeedY = Math.sqrt(ballSpeedVelocity**2 - ballSpeedX**2)
-      ballSpeedY = -ballSpeedY
-      console.log(ballSpeedX**2 + ballSpeedY**2, ballSpeedVelocity**2)
+    lives--
+    if(!lives){
+      alert('GAME OVER')
+      document.location.reload()
+      requestAnimationFrame(draw)
     }
-    // If the balls hits the bottom wall, removes a life or ends the game if there's no lives left
-    else {
-      lives--
-      if(!lives){
-        alert('GAME OVER')
-        document.location.reload()
-        requestAnimationFrame(draw)
-      }
-      else{
-        ballX = canvas.width/2
-        ballY = canvas.height-30
-        ballSpeedX = 2
-        ballSpeedY = -2
-        paddleX = (canvas.width-paddleWidth)/2
-      }
+    else{
+      ballX = canvas.width/2
+      ballY = canvas.height-30
+      ballSpeedX = 2
+      ballSpeedY = -2
+      paddleX = (canvas.width-paddleWidth)/2
     }
   }
 
@@ -255,24 +254,3 @@ function getRGBGridColor(xColor, yColor){
 
   return `rgb(${red}, ${green}, ${blue})`
 }
-
-// // Red Rectangle
-// ctx.beginPath()
-// ctx.rect(20, 40, 50, 50);
-// ctx.fillStyle = '#ff0000'
-// ctx.fill()
-// ctx.closePath()
-
-// // Green Circle
-// ctx.beginPath()
-// ctx.arc(240, 160, 20, 0, Math.PI*2, false)
-// ctx.fillStyle = 'green'
-// ctx.fill()
-// ctx.closePath()
-
-// // Blue Outlined Rectangle
-// ctx.beginPath()
-// ctx.rect(160, 10, 100, 40)
-// ctx.strokeStyle = 'rgba(0, 0, 255, 0.5)'
-// ctx.stroke()
-// ctx.closePath()
