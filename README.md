@@ -8,7 +8,7 @@ A 2D game made with Javascript in which you hit a ball with a paddle, directing 
 
 # To-Do's for the author
 
-- Finish base design
+- Finish base design -DONE
 - Add paddle -DONE
 - Add bricks -DONE
 - Add collision detection -DONE

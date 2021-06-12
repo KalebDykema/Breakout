@@ -8,7 +8,7 @@ let ballColor = '#0095dd'
 let randomBallColor = getRandomColor()
 let ballX = canvas.width/2
 let ballY = canvas.height-30
-let ballSpeed = 2
+let ballSpeed = 3
 let ballSpeedX = ballSpeed
 let ballSpeedY = -ballSpeed
 let ballSpeedVelocity = Math.sqrt(ballSpeedX**2 + ballSpeedY**2)
@@ -46,6 +46,7 @@ for(let c = 0; c < brickColumnCount; c++){
 // Other Variables
 let score = 0
 let lives = 2
+let bounceMultiplier = 2
 let rightPressed = false
 let leftPressed = false
 
@@ -83,7 +84,7 @@ function mouseMoveHandler(e){
 function collisionDetection(){
   // Paddle Detection
   if(ballX + ballRadius > paddleX && ballX - ballRadius < paddleX + paddleWidth && ballY + ballRadius> canvas.height-(paddleHeight/2) && ballY - ballRadius < (canvas.height-(paddleHeight/2)) + paddleHeight){
-    ballSpeedX = ((ballX-paddleX-(paddleWidth/2))/paddleWidth)*2
+    ballSpeedX = ((ballX-paddleX-(paddleWidth/2))/paddleWidth)*ballSpeed*bounceMultiplier
     ballSpeedY = Math.sqrt(ballSpeedVelocity**2 - ballSpeedX**2)
     ballSpeedY = -ballSpeedY
   }
