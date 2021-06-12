@@ -81,8 +81,7 @@ function collisionDetection(){
           score += brickScore
           ballSpeedY = -ballSpeedY
           if(score == brickRowCount * brickColumnCount * brickScore){
-            alert(`YOU WIN\n
-            Score: ${score}`)
+            alert(`YOU WIN\nScore: ${score}`)
             document.location.reload()
             clearInterval(interval)
           }
