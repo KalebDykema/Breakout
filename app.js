@@ -154,6 +154,18 @@ function draw(){
 // Calls draw every 10 miliseconds
 var interval = setInterval(draw, 10)
 
+// Collision detection calculations
+function collisionDetection(){
+  for(var c = 0; c < brickColumnCount; c++){
+    for(var r = 0; r < brickRowCount; r++){
+      let b = bricks[c][r]
+      if(ballX > b.x && ballX < b.x + brickWidth && ballY > b.y && ballY < b.y + brickHeight){
+        ballSpeedY = -ballSpeedY
+      }
+    }
+  }
+}
+
 // Returns a random color as a hexcode
 function getRandomColor(){
   let validChars = '0123456789ABCDEF'
