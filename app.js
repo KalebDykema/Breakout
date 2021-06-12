@@ -43,7 +43,7 @@ for(let c = 0; c < brickColumnCount; c++){
 
 // Other Variables
 let score = 0
-let lives = 3
+let lives = 2
 let rightPressed = false
 let leftPressed = false
 
@@ -84,7 +84,7 @@ function collisionDetection(){
       // Ball will only bounce if the brick hasn't been hit
       if(bricks[c][r].status == 1){
         let b = bricks[c][r]
-        if(ballX - ballRadius > b.x && ballX - ballRadius < b.x + brickWidth && ballY - ballRadius> b.y && ballY - ballRadius < b.y + brickHeight){
+        if(ballX + ballRadius > b.x && ballX - ballRadius < b.x + brickWidth && ballY + ballRadius> b.y && ballY - ballRadius < b.y + brickHeight){
           bricks[c][r].status = 0
           randomBallColor = getRandomColor()
           score += brickScore
