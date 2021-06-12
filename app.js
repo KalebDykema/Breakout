@@ -19,6 +19,7 @@ let paddleX = (canvas.width-paddleWidth)/2
 let paddleSpeed = 7
 
 // Brick Variables
+let brickScore = 2
 let brickRowCount = 3
 let brickColumnCount = 5
 let brickWidth = 75
@@ -40,7 +41,8 @@ for(let c = 0; c < brickColumnCount; c++){
   }
 }
 
-// Control Variables
+// Other Variables
+let score = 0
 let rightPressed = false
 let leftPressed = false
 
@@ -76,11 +78,25 @@ function collisionDetection(){
         if(ballX - ballRadius > b.x && ballX - ballRadius < b.x + brickWidth && ballY - ballRadius> b.y && ballY - ballRadius < b.y + brickHeight){
           bricks[c][r].status = 0
           randomBallColor = getRandomColor()
+          score += brickScore
           ballSpeedY = -ballSpeedY
+          if(score == brickRowCount * brickColumnCount * brickScore){
+            alert(`YOU WIN\n
+            Score: ${score}`)
+            document.location.reload()
+            clearInterval(interval)
+          }
         }
       }
     }
   }
+}
+
+// Draws the score
+function drawScore(){
+  ctx.font = '16px Arial'
+  ctx.fillStyle = '#0095DD'
+  ctx.fillText(`Score: ${score}`, 8, 20)
 }
 
 // Draws the ball
@@ -128,6 +144,7 @@ function draw(){
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   drawBall()
   drawPaddle()
+  drawScore()
   drawBricks()
   collisionDetection()
 
