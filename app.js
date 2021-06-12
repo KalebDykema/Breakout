@@ -23,6 +23,7 @@ let brickRowCount = 3
 let brickColumnCount = 5
 let brickWidth = 75
 let brickHeight = 20
+let brickColor = '#0095DD'
 let brickPadding = 10
 let brickOffsetTop = 30
 let brickOffsetLeft = 30
@@ -81,36 +82,21 @@ function drawPaddle(){
   ctx.closePath()
 }
 
-// Returns a random color as a hexcode
-function getRandomColor(){
-  let validChars = '0123456789ABCDEF'
-  let color = '#'
-  for(i = 0; i < 6; i++){
-    color += validChars[Math.floor(Math.random() * 16)]
+// Draw a bricks
+function drawBricks(){
+  for(var c = 0; c < brickColumnCount; c++){
+    for(var r = 0; r < brickRowCount; r++){
+      let brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft
+      let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop
+      bricks[c][r].x = brickX
+      bricks[c][r].y = brickY
+      ctx.beginPath()
+      ctx.rect(brickX, brickY, brickWidth, brickHeight)
+      ctx.fillStyle = brickColor
+      ctx.fill()
+      ctx.closePath()
+    }
   }
-  return color
-}
-
-// Returns a color based on the x and y coordinates, arguments choose to either to r, g, and/or b
-function getRGBGridColor(xColor, yColor){
-  let defaultValue = 50
-  let red = defaultValue
-  let green = defaultValue
-  let blue = defaultValue
-
-  // Checks what color the first variable is, makes sure the second is not the same, and makes sure it's R, G, or B. If none of this is true, returns the default color
-  if(xColor.toLowerCase() == 'r' && yColor.toLowerCase != 'r') red = ballX + defaultValue
-  else if(xColor.toLowerCase() == 'g' && yColor.toLowerCase != 'g') green = ballX + defaultValue
-  else if(xColor.toLowerCase() == 'b' && yColor.toLowerCase != 'b') blue = ballX + defaultValue
-  else return ballColor
-
-  // Checks what color the second variable is, makes sure the first is not the same, and makes sure it's R, G, or B. If none of this is true, returns the default color
-  if(yColor.toLowerCase() == 'r' && xColor.toLowerCase != 'r') red = ballY + defaultValue
-  else if(yColor.toLowerCase() == 'g' && xColor.toLowerCase != 'g') green = ballY + defaultValue
-  else if(yColor.toLowerCase() == 'b' && xColor.toLowerCase != 'b') blue = ballY + defaultValue
-  else return ballColor
-
-  return `rgb(${red}, ${green}, ${blue})`
 }
 
 // General draw function
@@ -118,6 +104,7 @@ function draw(){
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   drawBall()
   drawPaddle()
+  drawBricks()
 
   // Checks to see if a button has been pressed
   if(rightPressed){
@@ -166,6 +153,38 @@ function draw(){
 }
 // Calls draw every 10 miliseconds
 var interval = setInterval(draw, 10)
+
+// Returns a random color as a hexcode
+function getRandomColor(){
+  let validChars = '0123456789ABCDEF'
+  let color = '#'
+  for(i = 0; i < 6; i++){
+    color += validChars[Math.floor(Math.random() * 16)]
+  }
+  return color
+}
+
+// Returns a color based on the x and y coordinates, arguments choose to either to r, g, and/or b
+function getRGBGridColor(xColor, yColor){
+  let defaultValue = 50
+  let red = defaultValue
+  let green = defaultValue
+  let blue = defaultValue
+
+  // Checks what color the first variable is, makes sure the second is not the same, and makes sure it's R, G, or B. If none of this is true, returns the default color
+  if(xColor.toLowerCase() == 'r' && yColor.toLowerCase != 'r') red = ballX + defaultValue
+  else if(xColor.toLowerCase() == 'g' && yColor.toLowerCase != 'g') green = ballX + defaultValue
+  else if(xColor.toLowerCase() == 'b' && yColor.toLowerCase != 'b') blue = ballX + defaultValue
+  else return ballColor
+
+  // Checks what color the second variable is, makes sure the first is not the same, and makes sure it's R, G, or B. If none of this is true, returns the default color
+  if(yColor.toLowerCase() == 'r' && xColor.toLowerCase != 'r') red = ballY + defaultValue
+  else if(yColor.toLowerCase() == 'g' && xColor.toLowerCase != 'g') green = ballY + defaultValue
+  else if(yColor.toLowerCase() == 'b' && xColor.toLowerCase != 'b') blue = ballY + defaultValue
+  else return ballColor
+
+  return `rgb(${red}, ${green}, ${blue})`
+}
 
 // // Red Rectangle
 // ctx.beginPath()
