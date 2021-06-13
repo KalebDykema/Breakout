@@ -22,7 +22,8 @@ A 2D game made with Javascript in which you hit a ball with a paddle, directing 
 - Clean up code -DONE
 - Add better comments -DONE
 - Add sprites -DONE
-- Add background
+- Add background -DONE
+- Add slowly moving moon
 - Add new font
 - Make final score display correctly
 - Add new game over screen

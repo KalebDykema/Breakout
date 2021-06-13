@@ -69,8 +69,8 @@ function draw(){
     else{
       ball.x = canvas.width/2
       ball.y = canvas.height-30
-      ball.speedX = 2
-      ball.speedY = -2
+      ball.speedX = ball.baseSpeed
+      ball.speedY = -ball.baseSpeed
       paddle.x = (canvas.width-paddle.width)/2
     }
   }
