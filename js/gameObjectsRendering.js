@@ -8,10 +8,10 @@ let ballSprite = new Image()
 let brickSprite = new Image()
 let moonSprite = new Image()
 let paddleSprite = new Image()
-ballSprite.src = '../img/ball.png'
-brickSprite.src = '../img/brick.png'
-moonSprite.src = '../img/moon.png'
-paddleSprite.src = '../img/paddle.png'
+ballSprite.src = './img/ball.png'
+brickSprite.src = './img/brick.png'
+moonSprite.src = './img/moon.png'
+paddleSprite.src = './img/paddle.png'
 
 // Draws the ball
 function drawBall(){
