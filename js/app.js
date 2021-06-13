@@ -2,6 +2,7 @@
 let ball = new Ball()
 let brick = new Brick()
 let bricks = []
+let moon = new Moon()
 let paddle = new Paddle()
 
 // Variables
@@ -26,11 +27,12 @@ for(let c = 0; c < brick.columns; c++){
 // Primary Rendering Function
 function draw(){
   ctx.clearRect(0, 0, canvas.width, canvas.height)
+  drawMoon()
   drawBall()
   drawPaddle()
   drawScore()
-  drawLives()
   drawBricks()
+  drawLives()
   collisionDetection()
 
   // Checks to see if a button has been pressed
@@ -75,8 +77,15 @@ function draw(){
     }
   }
 
+  // Position Adjustments based on speed
   ball.x += ball.speedX
   ball.y += ball.speedY
+  moon.x -= moon.speedX
+  
+  // If the moon goes off the screen, pushes it back to the other side
+  if(moon.x < 0 - moon.width){
+    moon.x = canvas.width+moon.width
+  }
 
   requestAnimationFrame(draw)
 }

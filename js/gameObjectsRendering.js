@@ -4,35 +4,18 @@ let ctx = canvas.getContext('2d')
 ctx.imageSmoothingEnabled = false
 
 // Sprites
-let brickSprite = new Image()
-let paddleSprite = new Image()
 let ballSprite = new Image()
-brickSprite.src = '../img/brick.png'
-paddleSprite.src = '../img/paddle.png'
+let brickSprite = new Image()
+let moonSprite = new Image()
+let paddleSprite = new Image()
 ballSprite.src = '../img/ball.png'
-
-// Draws the score
-function drawScore(){
-  ctx.font = '16px Arial'
-  ctx.fillStyle = '#0095DD'
-  ctx.fillText(`Score: ${score}`, 8, 20)
-}
-
-// Draws the lives
-function drawLives(){
-  ctx.font = '16px Arial'
-  ctx.fillStyle = '#0095DD'
-  ctx.fillText(`Lives: ${lives}`, canvas.width-65, 20)
-}
+brickSprite.src = '../img/brick.png'
+moonSprite.src = '../img/moon.png'
+paddleSprite.src = '../img/paddle.png'
 
 // Draws the ball
 function drawBall(){
   ctx.drawImage(ballSprite, ball.x-ball.radius, ball.y-ball.radius, ball.radius*2, ball.radius*2)
-}
-
-// Draws the paddle
-function drawPaddle(){
-  ctx.drawImage(paddleSprite, paddle.x, canvas.height-paddle.height, paddle.width, paddle.height)
 }
 
 // Draw a bricks
@@ -49,4 +32,27 @@ function drawBricks(){
       }
     }
   }
+}
+
+// Draws the lives
+function drawLives(){
+  ctx.font = '16px Arial'
+  ctx.fillStyle = '#0095DD'
+  ctx.fillText(`Lives: ${lives}`, canvas.width-65, 20)
+}
+
+function drawMoon(){
+  ctx.drawImage(moonSprite, moon.x, moon.y, moon.width, moon.height)
+}
+
+// Draws the paddle
+function drawPaddle(){
+  ctx.drawImage(paddleSprite, paddle.x, canvas.height-paddle.height, paddle.width, paddle.height)
+}
+
+// Draws the score
+function drawScore(){
+  ctx.font = '16px Arial'
+  ctx.fillStyle = '#0095DD'
+  ctx.fillText(`Score: ${score}`, 8, 20)
 }
