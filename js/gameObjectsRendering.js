@@ -6,8 +6,10 @@ ctx.imageSmoothingEnabled = false
 // Sprites
 let brickSprite = new Image()
 let paddleSprite = new Image()
+let ballSprite = new Image()
 brickSprite.src = '../img/brick.png'
 paddleSprite.src = '../img/paddle.png'
+ballSprite.src = '../img/ball.png'
 
 // Draws the score
 function drawScore(){
@@ -25,11 +27,7 @@ function drawLives(){
 
 // Draws the ball
 function drawBall(){
-  ctx.beginPath()
-  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2)
-  ctx.fillStyle = ball.randomColor
-  ctx.fill()
-  ctx.closePath()
+  ctx.drawImage(ballSprite, ball.x-ball.radius, ball.y-ball.radius, ball.radius*2, ball.radius*2)
 }
 
 // Draws the paddle
