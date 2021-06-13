@@ -2,54 +2,39 @@
 let canvas = document.getElementById('myCanvas')
 let ctx = canvas.getContext('2d')
 
-// Constructors
-function Ball() {
-  this.radius = 10
-  this.x = canvas.width/2
-  this.y = canvas.height-30
-  this.color = '#0095dd'
-  this.randomColor = getRandomColor()
-  this.baseSpeed = 3
-  this.speedX = this.baseSpeed
-  this.speedY = -this.baseSpeed
-  this.speed = Math.sqrt(this.speedX**2 + this.speedY**2)
-}
+// Ball Variables
+let ballRadius = 10
+let ballColor = '#0095dd'
+let randomBallColor = getRandomColor()
+let ballX = canvas.width/2
+let ballY = canvas.height-30
+let ballSpeed = 3
+let ballSpeedX = ballSpeed
+let ballSpeedY = -ballSpeed
+let ballSpeedVelocity = Math.sqrt(ballSpeedX**2 + ballSpeedY**2)
 
-function Paddle() {
-  this.height = 10
-  this.width = 75
-  this.color = '#0095DD'
-  this.x = (canvas.width-this.width)/2
-  this.speedX = 7
-}
+// Paddle Variables
+let paddleHeight = 10
+let paddleWidth = 75
+let paddleColor = '#0095DD'
+let paddleX = (canvas.width-paddleWidth)/2
+let paddleSpeed = 7
 
-function Brick() {
-  this.width = 75
-  this.height = 20
-  this.color = '#0095DD'
-  this.rows = 3
-  this.columns = 5
-  this.padding = 10
-  this.offsetTop = 30
-  this.offsetLeft = 30
-  this.scoreValue = 2
-}
-
-// Objects and Variables
-let ball = new Ball()
-let brick = new Brick()
+// Brick Variables
+let brickScore = 2
+let brickRowCount = 3
+let brickColumnCount = 5
+let brickWidth = 75
+let brickHeight = 20
+let brickColor = '#0095DD'
+let brickPadding = 10
+let brickOffsetTop = 30
+let brickOffsetLeft = 30
 let bricks = []
-let paddle = new Paddle()
-let score = 0
-let lives = 2
-let bounceMultiplier = 2
-let rightPressed = false
-let leftPressed = false
-
 // Loops through and creates the approriate amount of columns and rows of bricks
-for(let c = 0; c < brick.columns; c++){
+for(let c = 0; c < brickColumnCount; c++){
   bricks[c] = []
-  for(var r=0; r < brick.rows; r++){
+  for(var r=0; r < brickRowCount; r++){
     bricks[c][r] = {
       x: 0, 
       y: 0, 
@@ -57,6 +42,13 @@ for(let c = 0; c < brick.columns; c++){
     }
   }
 }
+
+// Other Variables
+let score = 0
+let lives = 2
+let bounceMultiplier = 2
+let rightPressed = false
+let leftPressed = false
 
 // Event Listeners and Handlers
 document.addEventListener('keydown', keyDownHandler, false)
@@ -83,32 +75,32 @@ function keyUpHandler(e){
 
 function mouseMoveHandler(e){
   let relativeX = e.clientX - canvas.offsetLeft
-  if(relativeX > paddle.width/2 && relativeX < canvas.width-paddle.width/2){
-    paddle.x = relativeX - paddle.width/2
+  if(relativeX > paddleWidth/2 && relativeX < canvas.width-paddleWidth/2){
+    paddleX = relativeX - paddleWidth/2
   }
 }
 
 // Collision detection calculations
 function collisionDetection(){
   // Paddle Detection
-  if(ball.x + ball.radius > paddle.x && ball.x - ball.radius < paddle.x + paddle.width && ball.y + ball.radius> canvas.height-(paddle.height/2) && ball.y - ball.radius < (canvas.height-(paddle.height/2)) + paddle.height){
-    ball.speedX = ((ball.x-paddle.x-(paddle.width/2))/paddle.width)*ball.baseSpeed*bounceMultiplier
-    ball.speedY = Math.sqrt(ball.speed**2 - ball.speedX**2)
-    ball.speedY = -ball.speedY
+  if(ballX + ballRadius > paddleX && ballX - ballRadius < paddleX + paddleWidth && ballY + ballRadius> canvas.height-(paddleHeight/2) && ballY - ballRadius < (canvas.height-(paddleHeight/2)) + paddleHeight){
+    ballSpeedX = ((ballX-paddleX-(paddleWidth/2))/paddleWidth)*ballSpeed*bounceMultiplier
+    ballSpeedY = Math.sqrt(ballSpeedVelocity**2 - ballSpeedX**2)
+    ballSpeedY = -ballSpeedY
   }
 
   // Brick Detections
-  for(var c = 0; c < brick.columns; c++){
-    for(var r = 0; r < brick.rows; r++){
+  for(var c = 0; c < brickColumnCount; c++){
+    for(var r = 0; r < brickRowCount; r++){
       // Ball will only bounce if the brick hasn't been hit
       if(bricks[c][r].status == 1){
         let b = bricks[c][r]
-        if(ball.x + ball.radius > b.x && ball.x - ball.radius < b.x + brick.width && ball.y + ball.radius> b.y && ball.y - ball.radius < b.y + brick.height){
+        if(ballX + ballRadius > b.x && ballX - ballRadius < b.x + brickWidth && ballY + ballRadius> b.y && ballY - ballRadius < b.y + brickHeight){
           bricks[c][r].status = 0
-          ball.randomColor = getRandomColor()
-          score += brick.scoreValue
-          ball.speedY = -ball.speedY
-          if(score == brick.rows * brick.columns * brick.scoreValue){
+          randomBallColor = getRandomColor()
+          score += brickScore
+          ballSpeedY = -ballSpeedY
+          if(score == brickRowCount * brickColumnCount * brickScore){
             alert(`YOU WIN\nScore: ${score}`)
             document.location.reload()
             requestAnimationFrame(draw) 
@@ -136,8 +128,10 @@ function drawLives(){
 // Draws the ball
 function drawBall(){
   ctx.beginPath()
-  ctx.arc(ball.x, ball.y, ball.radius, 0, Math.PI*2)
-  ctx.fillStyle = ball.randomColor
+  ctx.arc(ballX, ballY, ballRadius, 0, Math.PI*2)
+  // ctx.fillStyle = ballColor
+  ctx.fillStyle = randomBallColor
+  // ctx.fillStyle = getRGBGridColor('g', 'b')
   ctx.fill()
   ctx.closePath()
 }
@@ -145,25 +139,25 @@ function drawBall(){
 // Draws the paddle
 function drawPaddle(){
   ctx.beginPath()
-  ctx.rect(paddle.x, canvas.height-paddle.height, paddle.width, paddle.height)
-  ctx.fillStyle = paddle.color
+  ctx.rect(paddleX, canvas.height-paddleHeight, paddleWidth, paddleHeight)
+  ctx.fillStyle = paddleColor
   ctx.fill()
   ctx.closePath()
 }
 
 // Draw a bricks
 function drawBricks(){
-  for(var c = 0; c < brick.columns; c++){
-    for(var r = 0; r < brick.rows; r++){
+  for(var c = 0; c < brickColumnCount; c++){
+    for(var r = 0; r < brickRowCount; r++){
       // Only draws the brick if it's status is at 1, AKA it hasn't been hit
       if(bricks[c][r].status == 1){
-        let brickX = (c * (brick.width + brick.padding)) + brick.offsetLeft
-        let brickY = (r * (brick.height + brick.padding)) + brick.offsetTop
+        let brickX = (c * (brickWidth + brickPadding)) + brickOffsetLeft
+        let brickY = (r * (brickHeight + brickPadding)) + brickOffsetTop
         bricks[c][r].x = brickX
         bricks[c][r].y = brickY
         ctx.beginPath()
-        ctx.rect(brickX, brickY, brick.width, brick.height)
-        ctx.fillStyle = brick.color
+        ctx.rect(brickX, brickY, brickWidth, brickHeight)
+        ctx.fillStyle = brickColor
         ctx.fill()
         ctx.closePath()
       }
@@ -183,31 +177,31 @@ function draw(){
 
   // Checks to see if a button has been pressed
   if(rightPressed){
-    paddle.x += paddle.speedX
+    paddleX += paddleSpeed
     // Checks to make sure it isn't hitting a boundary
-    if(paddle.x + paddle.width > canvas.width){
-      paddle.x = canvas.width - paddle.width
+    if(paddleX + paddleWidth > canvas.width){
+      paddleX = canvas.width - paddleWidth
     }
   }
   else if(leftPressed){
-    paddle.x -= paddle.speedX
+    paddleX -= paddleSpeed
     // Checks to make sure it isn't hitting a boundary
-    if(paddle.x < 0){
-      paddle.x = 0
+    if(paddleX < 0){
+      paddleX = 0
     }
   }
 
   // Checks to see if the ball is hitting a boundary. If so, bounces it off
-  if(ball.x + ball.speedX > canvas.width-ball.radius || ball.x + ball.speedX < ball.radius ){
-    ball.speedX = -ball.speedX
-    ball.randomColor = getRandomColor()
+  if(ballX + ballSpeedX > canvas.width-ballRadius || ballX + ballSpeedX < ballRadius ){
+    ballSpeedX = -ballSpeedX
+    randomBallColor = getRandomColor()
   }
-  if(ball.y + ball.speedY < ball.radius ){
-    ball.speedY = -ball.speedY
-    ball.randomColor = getRandomColor()
+  if(ballY + ballSpeedY < ballRadius ){
+    ballSpeedY = -ballSpeedY
+    randomBallColor = getRandomColor()
   }
   // If the balls hits the bottom wall, removes a life or ends the game if there's no lives left
-  else if(ball.y + ball.speedY > canvas.height-ball.radius){
+  else if(ballY + ballSpeedY > canvas.height-ballRadius){
     lives--
     if(!lives){
       alert('GAME OVER')
@@ -215,16 +209,16 @@ function draw(){
       requestAnimationFrame(draw)
     }
     else{
-      ball.x = canvas.width/2
-      ball.y = canvas.height-30
-      ball.speedX = 2
-      ball.speedY = -2
-      paddle.x = (canvas.width-paddle.width)/2
+      ballX = canvas.width/2
+      ballY = canvas.height-30
+      ballSpeedX = 2
+      ballSpeedY = -2
+      paddleX = (canvas.width-paddleWidth)/2
     }
   }
 
-  ball.x += ball.speedX
-  ball.y += ball.speedY
+  ballX += ballSpeedX
+  ballY += ballSpeedY
 
   requestAnimationFrame(draw)
 }
@@ -248,16 +242,16 @@ function getRGBGridColor(xColor, yColor){
   let blue = defaultValue
 
   // Checks what color the first variable is, makes sure the second is not the same, and makes sure it's R, G, or B. If none of this is true, returns the default color
-  if(xColor.toLowerCase() == 'r' && yColor.toLowerCase != 'r') red = ball.x + defaultValue
-  else if(xColor.toLowerCase() == 'g' && yColor.toLowerCase != 'g') green = ball.x + defaultValue
-  else if(xColor.toLowerCase() == 'b' && yColor.toLowerCase != 'b') blue = ball.x + defaultValue
-  else return ball.color
+  if(xColor.toLowerCase() == 'r' && yColor.toLowerCase != 'r') red = ballX + defaultValue
+  else if(xColor.toLowerCase() == 'g' && yColor.toLowerCase != 'g') green = ballX + defaultValue
+  else if(xColor.toLowerCase() == 'b' && yColor.toLowerCase != 'b') blue = ballX + defaultValue
+  else return ballColor
 
   // Checks what color the second variable is, makes sure the first is not the same, and makes sure it's R, G, or B. If none of this is true, returns the default color
-  if(yColor.toLowerCase() == 'r' && xColor.toLowerCase != 'r') red = ball.y + defaultValue
-  else if(yColor.toLowerCase() == 'g' && xColor.toLowerCase != 'g') green = ball.y + defaultValue
-  else if(yColor.toLowerCase() == 'b' && xColor.toLowerCase != 'b') blue = ball.y + defaultValue
-  else return ball.color
+  if(yColor.toLowerCase() == 'r' && xColor.toLowerCase != 'r') red = ballY + defaultValue
+  else if(yColor.toLowerCase() == 'g' && xColor.toLowerCase != 'g') green = ballY + defaultValue
+  else if(yColor.toLowerCase() == 'b' && xColor.toLowerCase != 'b') blue = ballY + defaultValue
+  else return ballColor
 
   return `rgb(${red}, ${green}, ${blue})`
 }
