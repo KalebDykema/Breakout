@@ -20,8 +20,8 @@ function Paddle() {
 }
 
 function Brick() {
-  this.width = 75
   this.height = 20
+  this.width = 75
   this.color = '#0095DD'
   this.rows = 3
   this.columns = 5

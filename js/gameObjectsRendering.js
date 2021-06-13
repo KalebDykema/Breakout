@@ -1,6 +1,13 @@
 // DOM Objects
 let canvas = document.getElementById('myCanvas')
 let ctx = canvas.getContext('2d')
+ctx.imageSmoothingEnabled = false
+
+// Sprites
+let brickSprite = new Image()
+let paddleSprite = new Image()
+brickSprite.src = '../img/brick.png'
+paddleSprite.src = '../img/paddle.png'
 
 // Draws the score
 function drawScore(){
@@ -27,11 +34,7 @@ function drawBall(){
 
 // Draws the paddle
 function drawPaddle(){
-  ctx.beginPath()
-  ctx.rect(paddle.x, canvas.height-paddle.height, paddle.width, paddle.height)
-  ctx.fillStyle = paddle.color
-  ctx.fill()
-  ctx.closePath()
+  ctx.drawImage(paddleSprite, paddle.x, canvas.height-paddle.height, paddle.width, paddle.height)
 }
 
 // Draw a bricks
@@ -44,11 +47,7 @@ function drawBricks(){
         let brickY = (r * (brick.height + brick.padding)) + brick.offsetTop
         bricks[c][r].x = brickX
         bricks[c][r].y = brickY
-        ctx.beginPath()
-        ctx.rect(brickX, brickY, brick.width, brick.height)
-        ctx.fillStyle = brick.color
-        ctx.fill()
-        ctx.closePath()
+        ctx.drawImage(brickSprite, brickX, brickY, brick.width, brick.height)
       }
     }
   }
