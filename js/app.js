@@ -9,6 +9,7 @@ let paddle = new Paddle()
 let score = 0
 let lives = 2
 let bounceMultiplier = 2
+let fontColor = 'white'
 let rightPressed = false
 let leftPressed = false
 

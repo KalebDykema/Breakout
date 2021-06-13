@@ -37,7 +37,7 @@ function drawBricks(){
 // Draws the lives
 function drawLives(){
   ctx.font = '16px Arial'
-  ctx.fillStyle = '#0095DD'
+  ctx.fillStyle = fontColor
   ctx.fillText(`Lives: ${lives}`, canvas.width-65, 20)
 }
 
@@ -53,6 +53,6 @@ function drawPaddle(){
 // Draws the score
 function drawScore(){
   ctx.font = '16px Arial'
-  ctx.fillStyle = '#0095DD'
+  ctx.fillStyle = fontColor
   ctx.fillText(`Score: ${score}`, 8, 20)
 }
