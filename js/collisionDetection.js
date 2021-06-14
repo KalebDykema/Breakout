@@ -7,6 +7,29 @@ function collisionDetection(){
     ball.speedY = -ball.speedY
   }
 
+  // Boundary Detection
+  if(ball.x + ball.speedX > canvas.width-ball.radius || ball.x + ball.speedX < ball.radius ){
+    ball.speedX = -ball.speedX
+  }
+  if(ball.y + ball.speedY < ball.radius ){
+    ball.speedY = -ball.speedY
+  }
+  // If the balls hits the bottom wall, removes a life or ends the game if there's no lives left
+  else if(ball.y + ball.speedY > canvas.height-ball.radius){
+    lives--
+    if(!lives){
+      alert('GAME OVER')
+      document.location.reload()
+      requestAnimationFrame(draw)
+    }
+    else{
+      ballShot = false
+      ball.x = paddle.x+(paddle.width/2)
+      ball.y = canvas.height-(paddle.height)
+      paddle.x = (canvas.width-paddle.width)/2
+    }
+  }
+
   // Brick Detections
   for(var c = 0; c < brick.columns; c++){
     for(var r = 0; r < brick.rows; r++){

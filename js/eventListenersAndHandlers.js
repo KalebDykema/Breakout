@@ -25,7 +25,9 @@ function keyUpHandler(e){
   // Shoot the ball
   if(e.key == ' ' || e.key == 'Spacebar'){
     ballShot = true
-    console.log(ballShot)
+    ball.speedX = ((ball.x-paddle.x-(paddle.width/2))/paddle.width)*ball.baseSpeed*bounceMultiplier
+    ball.speedY = Math.sqrt(ball.speed**2 - ball.speedX**2)
+    ball.speedY = -ball.speedY
   }
 }
 
@@ -33,5 +35,23 @@ function mouseMoveHandler(e){
   let relativeX = e.clientX - canvas.offsetLeft
   if(relativeX > paddle.width/2 && relativeX < canvas.width-paddle.width/2){
     paddle.x = relativeX - paddle.width/2
+  }
+}
+
+function movementControls(){
+  // Checks to see if a button has been pressed
+  if(rightPressed){
+    paddle.x += paddle.speedX
+    // Checks to make sure it isn't hitting a boundary
+    if(paddle.x + paddle.width > canvas.width){
+      paddle.x = canvas.width - paddle.width
+    }
+  }
+  else if(leftPressed){
+    paddle.x -= paddle.speedX
+    // Checks to make sure it isn't hitting a boundary
+    if(paddle.x < 0){
+      paddle.x = 0
+    }
   }
 }
