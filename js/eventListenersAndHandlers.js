@@ -22,12 +22,15 @@ function keyUpHandler(e){
     leftPressed = false
   }
 
-  // Shoot the ball
-  if(e.key == ' ' || e.key == 'Spacebar'){
+  // Shoot the ball in a random direction upon clicking space
+  if(e.key == ' ' || e.key == 'Spacebar' && ballShot == false){
     ballShot = true
-    ball.speedX = ((ball.x-paddle.x-(paddle.width/2))/paddle.width)*ball.baseSpeed*bounceMultiplier
+    let randomValue = Math.random() * paddle.width
+    console.log(randomValue, paddle.width)
+    ball.speedX = ((randomValue-(paddle.width/2))/paddle.width)*ball.baseSpeed*bounceMultiplier
     ball.speedY = Math.sqrt(ball.speed**2 - ball.speedX**2)
     ball.speedY = -ball.speedY
+    console.log(ball.speedX)
   }
 }
 
