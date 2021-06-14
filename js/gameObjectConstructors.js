@@ -1,8 +1,8 @@
 // Constructors
 function Ball() {
   this.radius = 10
-  this.x = canvas.width/2
-  this.y = canvas.height-30
+  this.x,
+  this.y,
   this.randomColor = getRandomColor()
   this.baseSpeed = 3
   this.speedX = this.baseSpeed

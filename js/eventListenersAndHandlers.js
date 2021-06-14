@@ -4,6 +4,7 @@ document.addEventListener('keyup', keyUpHandler, false)
 document.addEventListener('mousemove', mouseMoveHandler, false)
 
 function keyDownHandler(e){
+  // Movement
   if(e.key == 'Right' || e.key == 'ArrowRight'){
     rightPressed = true
   }
@@ -13,11 +14,18 @@ function keyDownHandler(e){
 }
 
 function keyUpHandler(e){
+  // Movement
   if(e.key == 'Right' || e.key == 'ArrowRight'){
     rightPressed = false
   }
   else if(e.key == 'Left' || e.key == 'ArrowLeft'){
     leftPressed = false
+  }
+
+  // Shoot the ball
+  if(e.key == ' ' || e.key == 'Spacebar'){
+    ballShot = true
+    console.log(ballShot)
   }
 }
 

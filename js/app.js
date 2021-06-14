@@ -10,10 +10,10 @@ let score = 0
 let lives = 2
 let bounceMultiplier = 2
 let fontColor = 'white'
-let recentlyCollided = false
 let rightPressed = false
 let leftPressed = false
-
+let recentlyCollided = false
+let ballShot = false
 
 // Loops through and creates the approriate amount of columns and rows of bricks
 for(let c = 0; c < brick.columns; c++){
@@ -72,19 +72,26 @@ function draw(){
       requestAnimationFrame(draw)
     }
     else{
-      ball.x = canvas.width/2
-      ball.y = canvas.height-30
       ball.speedX = ball.baseSpeed
       ball.speedY = -ball.baseSpeed
-      paddle.x = (canvas.width-paddle.width)/2
+      ball.x = paddle.x+(paddle.width/2)
+      ball.y = canvas.height-(paddle.height)
+      // paddle.x = (canvas.width-paddle.width)
     }
   }
 
   // Position Adjustments based on speed
-  ball.x += ball.speedX
-  ball.y += ball.speedY
-  moon.x -= moon.speedX
-  
+  if(ballShot){
+    ball.x += ball.speedX
+    ball.y += ball.speedY
+    moon.x -= moon.speedX
+  }
+  // Sets the ball's position to above the paddle
+  else{
+    ball.x = paddle.x+(paddle.width/2)
+    ball.y = canvas.height-(paddle.height*2)
+  }
+
   // If the moon goes off the screen, pushes it back to the other side
   if(moon.x < 0 - moon.width){
     moon.x = canvas.width+moon.width
