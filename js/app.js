@@ -10,8 +10,10 @@ let score = 0
 let lives = 2
 let bounceMultiplier = 2
 let fontColor = 'white'
+let recentlyCollided = false
 let rightPressed = false
 let leftPressed = false
+
 
 // Loops through and creates the approriate amount of columns and rows of bricks
 for(let c = 0; c < brick.columns; c++){

@@ -14,10 +14,15 @@ function collisionDetection(){
       if(bricks[c][r].status == 1){
         let b = bricks[c][r]
         if(ball.x + ball.radius > b.x && ball.x - ball.radius < b.x + brick.width && ball.y + ball.radius> b.y && ball.y - ball.radius < b.y + brick.height){
+          // Makes sure another brick was not hit while looping through the array before adjusting the speed
+          if(!recentlyCollided){
+            ball.speedY = -ball.speedY
+          }
+          // Occasionally the ball will hit multiple bricks at once and get a double collision calculation. In order to figure this, this variable exists and gets set to true when the first brick is hit
+          recentlyCollided = true
+          setTimeout( ()=> {recentlyCollided = false}, 10 )
           bricks[c][r].status = 0
-          ball.randomColor = getRandomColor()
           score += brick.scoreValue
-          ball.speedY = -ball.speedY
           if(score == brick.rows * brick.columns * brick.scoreValue){
             alert(`YOU WIN\nScore: ${score}`)
             document.location.reload()
