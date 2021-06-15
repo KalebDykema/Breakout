@@ -34,6 +34,18 @@ function drawBricks(){
   }
 }
 
+// Game over screen
+function drawGameOver(){
+  const textLineOne = 'GAME OVER'
+  const textLineTwo = 'Press Space to Play Again'
+  ctx.font = font
+  ctx.fillStyle = fontColor
+  ctx.fillText(textLineOne, (canvas.width/2)-(ctx.measureText(textLineOne).width/2), canvas.height/2)
+  ctx.font = font
+  ctx.fillStyle = fontColor
+  ctx.fillText(textLineTwo, (canvas.width/2)-(ctx.measureText(textLineTwo).width/2), (canvas.height/2)+fontSize+textPadding)
+}
+
 // Draws the lives
 function drawLives(){
   const text = `LIVES: ${lives}`

@@ -18,9 +18,7 @@ function collisionDetection(){
   else if(ball.y + ball.speedY > canvas.height-ball.radius){
     lives--
     if(!lives){
-      alert('GAME OVER')
-      document.location.reload()
-      requestAnimationFrame(draw)
+      gameOver()
     }
     else{
       ballShot = false
@@ -47,9 +45,7 @@ function collisionDetection(){
           bricks[c][r].status = 0
           score += brick.scoreValue
           if(score == brick.rows * brick.columns * brick.scoreValue){
-            alert(`YOU WIN\nScore: ${score}`)
-            document.location.reload()
-            requestAnimationFrame(draw) 
+            winGame()
           }
         }
       }

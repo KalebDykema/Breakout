@@ -26,11 +26,11 @@ A 2D game made with Javascript in which you hit a ball with a paddle, directing 
 - Add slowly moving moon -DONE
 - Make ball start on paddle and get bounced off when player chooses -DONE
 - Added start screen at beginning of game -DONE
-- Add new font
 - Make final score display correctly
 - Add new game over screen
-- Add settings
+- Add new font
 - Add menu
+- Add settings
 - Add leaderboard
 
 # License
