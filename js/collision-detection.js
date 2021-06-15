@@ -18,7 +18,7 @@ function collisionDetection(){
   else if(ball.y + ball.speedY > canvas.height-ball.radius){
     lives--
     if(!lives){
-      gameOver()
+      endGame('lose')
     }
     else{
       ballShot = false
@@ -45,7 +45,7 @@ function collisionDetection(){
           bricks[c][r].status = 0
           score += brick.scoreValue
           if(score == brick.rows * brick.columns * brick.scoreValue){
-            winGame()
+            endGame('win')
           }
         }
       }

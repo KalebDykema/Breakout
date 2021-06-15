@@ -17,6 +17,7 @@ let rightPressed = false
 let leftPressed = false
 let recentlyCollided = false
 let ballShot = false
+let gameOver = false
 let textPadding = 8
 
 // Loops through and creates the approriate amount of columns and rows of bricks
@@ -51,7 +52,7 @@ function draw(){
   positionUpdating()
 
   // Starts a new frame and re-calls the draw function
-  requestAnimationFrame(draw)
+  if(!gameOver) requestAnimationFrame(draw)
 }
 // Init call
 draw()

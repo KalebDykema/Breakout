@@ -22,13 +22,21 @@ function keyUpHandler(e){
     leftPressed = false
   }
 
-  // Shoot the ball in a random direction upon clicking space
-  if((e.key == ' ' || e.key == 'Spacebar') && ballShot == false){
-    ballShot = true
-    let randomValue = Math.random() * paddle.width
-    ball.speedX = ((randomValue-(paddle.width/2))/paddle.width)*ball.baseSpeed*bounceMultiplier
-    ball.speedY = Math.sqrt(ball.speed**2 - ball.speedX**2)
-    ball.speedY = -ball.speedY
+  // Shoot the ball in a random direction upon clicking space, or start new game
+  if((e.key == ' ' || e.key == 'Spacebar')){
+    // Shoot ball
+    if(!ballShot){
+      ballShot = true
+      let randomValue = Math.random() * paddle.width
+      ball.speedX = ((randomValue-(paddle.width/2))/paddle.width)*ball.baseSpeed*bounceMultiplier
+      ball.speedY = Math.sqrt(ball.speed**2 - ball.speedX**2)
+      ball.speedY = -ball.speedY
+    }
+    // Start new game
+    if(gameOver){
+      document.location.reload()
+      requestAnimationFrame(draw) 
+    }
   }
 }
 
