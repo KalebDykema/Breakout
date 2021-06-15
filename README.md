@@ -1,10 +1,10 @@
 # Breakout
 
-A 2D game made with Javascript
+A remake of the classic game, Breakout, coded in Javascript
 
 # Description
 
-A 2D game made with Javascript in which you hit a ball with a paddle, directing it to hit and destroy other balls. This was partially made with the help of [this tutorial](https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript) from MDN Web Docs.
+A remake of the classic game, Breakout, in which you shoot a ball off a paddle to destory another ball. This was initially made with the help of [this tutorial](https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript) from MDN Web Docs.
 
 # To-Do's for the author
 
@@ -26,8 +26,8 @@ A 2D game made with Javascript in which you hit a ball with a paddle, directing 
 - Add slowly moving moon -DONE
 - Make ball start on paddle and get bounced off when player chooses -DONE
 - Added start screen at beginning of game -DONE
+- Add new game over screen -DONE
 - Make final score display correctly
-- Add new game over screen
 - Add new font
 - Add menu
 - Add settings
