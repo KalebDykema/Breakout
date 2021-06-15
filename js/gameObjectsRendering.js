@@ -36,9 +36,10 @@ function drawBricks(){
 
 // Draws the lives
 function drawLives(){
-  ctx.font = '16px Arial'
+  const text = `LIVES: ${lives}`
+  ctx.font = font
   ctx.fillStyle = fontColor
-  ctx.fillText(`Lives: ${lives}`, canvas.width-65, 20)
+  ctx.fillText(text, canvas.width-ctx.measureText(text).width-textPadding, 20)
 }
 
 function drawMoon(){
@@ -52,7 +53,16 @@ function drawPaddle(){
 
 // Draws the score
 function drawScore(){
-  ctx.font = '16px Arial'
+  const text = `SCORE: ${score}`
+  ctx.font = font
   ctx.fillStyle = fontColor
-  ctx.fillText(`Score: ${score}`, 8, 20)
+  ctx.fillText(text, textPadding, 20)
+}
+
+// Draws the start text
+function drawStart(){
+  const text = 'CLICK SPACE TO START'
+  ctx.font = font
+  ctx.fillStyle = fontColor
+  ctx.fillText(text, (canvas.width/2)-(ctx.measureText(text).width/2), canvas.height/2)
 }

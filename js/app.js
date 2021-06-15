@@ -9,11 +9,13 @@ let paddle = new Paddle()
 let score = 0
 let lives = 2
 let bounceMultiplier = 2
+let font = '16px Arial'
 let fontColor = 'white'
 let rightPressed = false
 let leftPressed = false
 let recentlyCollided = false
 let ballShot = false
+let textPadding = 8
 
 // Loops through and creates the approriate amount of columns and rows of bricks
 for(let c = 0; c < brick.columns; c++){
@@ -31,6 +33,7 @@ for(let c = 0; c < brick.columns; c++){
 function draw(){
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   drawMoon()
+  drawStart()
   drawBall()
   drawPaddle()
   drawScore()
