@@ -31,8 +31,10 @@ for(let c = 0; c < brick.columns; c++){
 
 // Primary Rendering Function
 function draw(){
+  // Clears the canvas on every frame
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
+  // Draw functions
   if(!ballShot) drawStart()
   drawScore()
   drawLives()
@@ -41,10 +43,13 @@ function draw(){
   drawPaddle()
   drawBricks()
 
+  // Game logic functions
   collisionDetection()
   movementControls()
-  updatePositions()
+  positionUpdating()
 
+  // Starts a new frame and re-calls the draw function
   requestAnimationFrame(draw)
 }
+// Init call
 draw()

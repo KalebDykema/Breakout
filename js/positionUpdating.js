@@ -1,4 +1,4 @@
-function updatePositions(){
+function positionUpdating(){
   // Ball position adjustments based on speed
   if(ballShot){
     ball.x += ball.speedX
