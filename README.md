@@ -27,7 +27,7 @@ A remake of the classic game, Breakout, in which you shoot a ball off a paddle t
 - Make ball start on paddle and get bounced off when player chooses -DONE
 - Added start screen at beginning of game -DONE
 - Add new game over screen -DONE
-- Make final score display correctly
+- Make final score display correctly -DONE
 - Add new font
 - Add menu
 - Add settings

@@ -41,8 +41,6 @@ function drawGameOver(){
   ctx.font = font
   ctx.fillStyle = fontColor
   ctx.fillText(textLineOne, (canvas.width/2)-(ctx.measureText(textLineOne).width/2), canvas.height/2)
-  ctx.font = font
-  ctx.fillStyle = fontColor
   ctx.fillText(textLineTwo, (canvas.width/2)-(ctx.measureText(textLineTwo).width/2), (canvas.height/2)+fontSize+textPadding)
 }
 
@@ -77,4 +75,14 @@ function drawStart(){
   ctx.font = font
   ctx.fillStyle = fontColor
   ctx.fillText(text, (canvas.width/2)-(ctx.measureText(text).width/2), canvas.height/2)
+}
+
+// Draw the win screen
+function drawYouWin(){
+  const textLineOne = `YOU WIN: ${score}`
+  const textLineTwo = 'Press Space to Play Again'
+  ctx.font = font
+  ctx.fillStyle = fontColor
+  ctx.fillText(textLineOne, (canvas.width/2)-(ctx.measureText(textLineOne).width/2), canvas.height/2)
+  ctx.fillText(textLineTwo, (canvas.width/2)-(ctx.measureText(textLineTwo).width/2), (canvas.height/2)+fontSize+textPadding)
 }

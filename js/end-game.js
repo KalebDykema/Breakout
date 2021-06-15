@@ -1,6 +1,7 @@
 function endGame(winStatus){
   if(winStatus == 'win'){
-    alert(`YOU WIN\nScore: ${score}`)
+    drawYouWin()
+    gameOver = true
   }
   else if(winStatus == 'lose'){
     drawGameOver()
