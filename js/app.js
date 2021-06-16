@@ -11,6 +11,8 @@ let lives = 2
 let bounceMultiplier = 2
 let rightPressed = false
 let leftPressed = false
+let canvasOffsetX
+let canvasOffsetY
 let recentlyCollided = false
 let ballShot = false
 let gameOver = false
