@@ -15,5 +15,10 @@ function positionUpdating(){
     moon.x = canvas.width+moon.width
   }
 
+  if(stars.x < 0 - stars.width/2){
+    stars.x = 0
+  }
+
   moon.x -= moon.speedX
+  stars.x -= stars.speedX
 }

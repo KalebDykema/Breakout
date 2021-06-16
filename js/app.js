@@ -4,6 +4,10 @@ let brick = new Brick()
 let bricks = []
 let moon = new Moon()
 let paddle = new Paddle()
+let stars = new Stars()
+
+console.log(stars.width)
+console.log(stars.height)
 
 // Game Variables
 let score = 0
@@ -42,6 +46,7 @@ function draw(){
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   
   if(!ballShot) drawStart()
+  drawStars()
   drawMoon()
   drawScore()
   drawLives()

@@ -8,12 +8,14 @@ let ballSprite = new Image()
 let brickSprite = new Image()
 let moonSprite = new Image()
 let paddleSprite = new Image()
+let starsSprite = new Image()
 
 // Sprite Paths
 ballSprite.src = './img/ball.png'
 brickSprite.src = './img/brick.png'
 moonSprite.src = './img/moon.png'
 paddleSprite.src = './img/paddle.png'
+starsSprite.src = './img/stars.png'
 
 // Draws the ball
 function drawBall(){
@@ -69,6 +71,11 @@ function drawScore(){
   ctx.font = font
   ctx.fillStyle = fontColor
   ctx.fillText(text, textPadding, 20)
+}
+
+// Draws the stars
+function drawStars(){
+  ctx.drawImage(starsSprite, stars.x, stars.y, stars.width, stars.height)
 }
 
 // Draws the start text

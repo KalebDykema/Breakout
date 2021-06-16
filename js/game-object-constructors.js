@@ -36,3 +36,11 @@ function Paddle() {
   this.x = (canvas.width-this.width)/2
   this.speedX = 7
 }
+
+function Stars(){
+  this.height = canvas.height
+  this.width = canvas.width*2
+  this.x = 0
+  this.y = 0
+  this.speedX = 0.01
+}
