@@ -1,7 +1,30 @@
 // Event Listeners and Handlers
-document.addEventListener('keydown', keyDownHandler, false)
-document.addEventListener('keyup', keyUpHandler, false)
-document.addEventListener('mousemove', mouseMoveHandler, false)
+document.addEventListener('click', clickHandler, false)
+
+function addGameEventListeners(){
+  document.addEventListener('keydown', keyDownHandler, false)
+  document.addEventListener('keyup', keyUpHandler, false)
+  document.addEventListener('mousemove', mouseMoveHandler, false)
+}
+
+function clickHandler(e){
+  const relativeX = e.clientX - canvas.offsetLeft
+  const relativeY = e.clientY - canvas.offsetTop
+  // Checks to see if one of the buttons on the main menu has been pressed
+  for(let r = 0; r < button.rows; r++){
+    if(relativeX > buttons[r].x && relativeX < buttons[r].x + button.width && relativeY > buttons[r].y && relativeY < buttons[r].y + button.height){
+      // Play button
+      if(buttons[r].path == 'play'){
+        onMenu = false
+        addGameEventListeners()
+      }
+      // Settings button
+      else if(buttons[r].path == 'settings'){
+
+      }
+    }
+  }
+}
 
 function keyDownHandler(e){
   // Movement
@@ -27,7 +50,7 @@ function keyUpHandler(e){
     // Shoot ball
     if(!ballShot){
       ballShot = true
-      let randomValue = Math.random() * paddle.width
+      const randomValue = Math.random() * paddle.width
       ball.speedX = ((randomValue-(paddle.width/2))/paddle.width)*ball.baseSpeed*bounceMultiplier
       ball.speedY = Math.sqrt(ball.speed**2 - ball.speedX**2)
       ball.speedY = -ball.speedY
@@ -41,7 +64,7 @@ function keyUpHandler(e){
 }
 
 function mouseMoveHandler(e){
-  let relativeX = e.clientX - canvas.offsetLeft
+  const relativeX = e.clientX - canvas.offsetLeft
   if(relativeX > paddle.width/2 && relativeX < canvas.width-paddle.width/2){
     paddle.x = relativeX - paddle.width/2
   }

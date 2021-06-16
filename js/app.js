@@ -48,6 +48,7 @@ for(let r = 0; r < button.rows; r++){
   buttons[r] = {
     x: 0,
     y: 0,
+    status: 1,
     text: '',
     path: ''
   }
@@ -58,13 +59,15 @@ function draw(){
   // Clears the canvas on every frame
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   
-  // Draw functions for main menu
   drawMoon()
-  drawTitle()
-  drawButtons()
 
+  // Draw functions just for main menu
+  if(onMenu){
+    drawTitle()
+    drawButtons()
+  }
   // Draw functions once game starts
-  if(!onMenu){
+  else if(!onMenu){
     if(!ballShot) drawStart()
     drawScore()
     drawLives()
