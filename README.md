@@ -4,7 +4,7 @@ A remake of the classic game, Breakout, coded in Javascript
 
 # Description
 
-![breakout_gif](https://github.com/KalebDykema/WebCalc/blob/master/Breakout.gif)
+![breakout_gif](https://github.com/KalebDykema/Breaout/blob/master/Breakout.gif)
 
 A remake of the classic game, Breakout, in which you shoot a ball off a paddle to destory another ball. This was initially made with the help of [this tutorial](https://developer.mozilla.org/en-US/docs/Games/Tutorials/2D_Breakout_game_pure_JavaScript) from MDN Web Docs.
 
