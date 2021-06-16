@@ -21,15 +21,6 @@ function Brick() {
   this.scoreValue = 2
 }
 
-function Button(){
-  this.height = 40
-  this.width = 150
-  this.rows = 2
-  this.offsetTop = 30
-  this.texts = ['Play', 'Settings']
-  this.paths = ['play', 'settings']
-}
-
 function Moon(){
   this.baseSize = 26
   this.height = this.baseSize

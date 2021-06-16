@@ -2,8 +2,6 @@
 let ball = new Ball()
 let brick = new Brick()
 let bricks = []
-let button = new Button()
-let buttons = []
 let moon = new Moon()
 let paddle = new Paddle()
 
@@ -14,7 +12,6 @@ let bounceMultiplier = 2
 let rightPressed = false
 let leftPressed = false
 let recentlyCollided = false
-let onMenu = true
 let ballShot = false
 let gameOver = false
 
@@ -24,12 +21,6 @@ let fontFamily = 'Arial'
 let fontColor = 'white'
 let font = `${fontSize}px ${fontFamily}`
 let textPadding = 8
-
-// Title Font Variables
-let titleFontSize = 24
-let titleFontFamily = 'Arial'
-let titleFontColor = 'limegreen'
-let titleFont = `${titleFontSize}px ${titleFontFamily}`
 
 // Loops through and creates the appropriate amount of columns and rows of bricks
 for(let c = 0; c < brick.columns; c++){
@@ -43,42 +34,22 @@ for(let c = 0; c < brick.columns; c++){
   }
 }
 
-// Loop through and create appropriate amount of buttons
-for(let r = 0; r < button.rows; r++){
-  buttons[r] = {
-    x: 0,
-    y: 0,
-    status: 1,
-    text: '',
-    path: ''
-  }
-}
-
 // Primary Rendering Function
 function draw(){
   // Clears the canvas on every frame
   ctx.clearRect(0, 0, canvas.width, canvas.height)
   
+  if(!ballShot) drawStart()
   drawMoon()
+  drawScore()
+  drawLives()
+  drawBall()
+  drawPaddle()
+  drawBricks()
 
-  // Draw functions just for main menu
-  if(onMenu){
-    drawTitle()
-    drawButtons()
-  }
-  // Draw functions once game starts
-  else if(!onMenu){
-    if(!ballShot) drawStart()
-    drawScore()
-    drawLives()
-    drawBall()
-    drawPaddle()
-    drawBricks()
-
-    // Game logic functions
-    collisionDetection()
-    movementControls()
-  }
+  // Game logic functions
+  collisionDetection()
+  movementControls()
   positionUpdating()
 
   // Starts a new frame and re-calls the draw function
